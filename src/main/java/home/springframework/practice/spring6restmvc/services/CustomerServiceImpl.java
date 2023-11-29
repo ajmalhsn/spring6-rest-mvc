@@ -1,6 +1,5 @@
 package home.springframework.practice.spring6restmvc.services;
 
-import home.springframework.practice.spring6restmvc.models.Biryani;
 import home.springframework.practice.spring6restmvc.models.Customer;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,8 @@ import java.util.*;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-    Map<UUID,Customer> customerMap = new HashMap<>();
+    Map<UUID, Customer> customerMap = new HashMap<>();
+
     public CustomerServiceImpl() {
 
     }
@@ -35,12 +35,13 @@ public class CustomerServiceImpl implements CustomerService {
                 .createdDate(LocalDateTime.now())
                 .lastModifiedDate(LocalDateTime.now()).build();
 
-        customerMap.put(customer1.getId(),customer1);
-        customerMap.put(customer2.getId(),customer2);
-        customerMap.put(customer2.getId(),customer3);
+        customerMap.put(customer1.getId(), customer1);
+        customerMap.put(customer2.getId(), customer2);
+        customerMap.put(customer2.getId(), customer3);
 
 
     }
+
     @Override
     public Customer getCustomerById(UUID id) {
         return customerMap.get(id);
