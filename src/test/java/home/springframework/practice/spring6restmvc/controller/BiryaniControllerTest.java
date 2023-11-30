@@ -13,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.BDDMockito.given;
@@ -41,7 +42,7 @@ class BiryaniControllerTest {
     public void getBiryaniId() {
         Biryani biryani = biryaniServiceImpl.biryaniList().get(0);
 
-        given(biryaniService.getBiryaniById(Mockito.any(UUID.class))).willReturn(biryani);
+        given(biryaniService.getBiryaniById(Mockito.any(UUID.class))).willReturn(Optional.of(biryani));
         mockMvc.perform(get("/biryani/v1/" + UUID.randomUUID())
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -53,7 +54,7 @@ class BiryaniControllerTest {
     public void getBiryaniNotFoundId() throws Exception {
 
 
-        given(biryaniService.getBiryaniById(Mockito.any(UUID.class))).willThrow(NotFoundException.class);
+        given(biryaniService.getBiryaniById(Mockito.any(UUID.class))).willReturn(Optional.empty());
         mockMvc.perform(get("/biryani/v1/" + UUID.randomUUID())
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());

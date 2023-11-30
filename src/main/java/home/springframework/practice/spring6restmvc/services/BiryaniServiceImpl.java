@@ -123,10 +123,10 @@ public class BiryaniServiceImpl implements BiryaniService {
     }
 
     @Override
-    public Biryani getBiryaniById(UUID id) {
+    public Optional<Biryani> getBiryaniById(UUID id) {
 
         log.debug("Log Debug for getting buryani by ID");
-        return map.get(id);
+        return Optional.of(map.get(id));
 
     }
 }

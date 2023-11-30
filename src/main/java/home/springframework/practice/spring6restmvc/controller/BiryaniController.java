@@ -66,7 +66,7 @@ public class BiryaniController {
     public Biryani getBiryaniById(@PathVariable UUID Id) {
         log.debug("Get Biryani in the Controller");
 
-        return biryaniService.getBiryaniById(Id);
+        return biryaniService.getBiryaniById(Id).orElseThrow(NotFoundException::new);
     }
 
     @ExceptionHandler(NotFoundException.class)
