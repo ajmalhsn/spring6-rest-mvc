@@ -1,7 +1,7 @@
 package home.springframework.practice.spring6restmvc.controller;
 
 import home.springframework.practice.spring6restmvc.exceptions.NotFoundException;
-import home.springframework.practice.spring6restmvc.models.Biryani;
+import home.springframework.practice.spring6restmvc.models.BiryaniDTO;
 import home.springframework.practice.spring6restmvc.services.BiryaniService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +24,8 @@ public class BiryaniController {
 
     @PatchMapping("{biryaniId}")
     public ResponseEntity patchById(@PathVariable("biryaniId") UUID biryaniId,
-                                    @RequestBody Biryani biryani) {
-        biryaniService.patchById(biryaniId, biryani);
+                                    @RequestBody BiryaniDTO biryaniDTO) {
+        biryaniService.patchById(biryaniId, biryaniDTO);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -41,29 +41,29 @@ public class BiryaniController {
 
     @PutMapping("/{biryaniId}")
     public ResponseEntity updateById(@PathVariable("biryaniId") UUID biryaniId,
-                                     @RequestBody Biryani biryani) {
+                                     @RequestBody BiryaniDTO biryaniDTO) {
 
-        biryaniService.updateById(biryaniId, biryani);
+        biryaniService.updateById(biryaniId, biryaniDTO);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping
-    public ResponseEntity addBiryani(@RequestBody Biryani biryani) {
-        Biryani newBiryani = biryaniService.saveNewBiryani(biryani);
+    public ResponseEntity addBiryani(@RequestBody BiryaniDTO biryaniDTO) {
+        BiryaniDTO newBiryaniDTO = biryaniService.saveNewBiryani(biryaniDTO);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "biryani/v1/" + newBiryani.getId().toString());
+        headers.add("Location", "biryani/v1/" + newBiryaniDTO.getId().toString());
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
     @RequestMapping("/list")
-    public List<Biryani> getBiryaniList() {
+    public List<BiryaniDTO> getBiryaniList() {
         log.debug("Biryani List called");
         return biryaniService.biryaniList();
     }
 
     @RequestMapping("/{Id}")
-    public Biryani getBiryaniById(@PathVariable UUID Id) {
+    public BiryaniDTO getBiryaniById(@PathVariable UUID Id) {
         log.debug("Get Biryani in the Controller");
 
         return biryaniService.getBiryaniById(Id).orElseThrow(NotFoundException::new);

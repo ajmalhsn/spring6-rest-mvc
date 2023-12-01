@@ -1,6 +1,6 @@
 package home.springframework.practice.spring6restmvc.services;
 
-import home.springframework.practice.spring6restmvc.models.Biryani;
+import home.springframework.practice.spring6restmvc.models.BiryaniDTO;
 import home.springframework.practice.spring6restmvc.models.BiryaniStyle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,11 +13,11 @@ import java.util.*;
 @Slf4j
 @Service
 public class BiryaniServiceImpl implements BiryaniService {
-    private Map<UUID, Biryani> map = new HashMap();
+    private Map<UUID, BiryaniDTO> map = new HashMap();
 
     public BiryaniServiceImpl() {
 
-        Biryani birynai1 = Biryani.builder()
+        BiryaniDTO birynai1 = BiryaniDTO.builder()
                 .id(UUID.randomUUID())
                 .version(12)
                 .biryaniName("Karachi Biryani")
@@ -28,7 +28,7 @@ public class BiryaniServiceImpl implements BiryaniService {
                 .createdDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
                 .build();
-        Biryani birynai2 = Biryani.builder()
+        BiryaniDTO birynai2 = BiryaniDTO.builder()
                 .id(UUID.randomUUID())
                 .version(12)
                 .biryaniName("Hyderbaadi  Biryani")
@@ -39,7 +39,7 @@ public class BiryaniServiceImpl implements BiryaniService {
                 .createdDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
                 .build();
-        Biryani birynai3 = Biryani.builder()
+        BiryaniDTO birynai3 = BiryaniDTO.builder()
                 .id(UUID.randomUUID())
                 .version(12)
                 .biryaniName("Shadmani Biryani")
@@ -57,36 +57,36 @@ public class BiryaniServiceImpl implements BiryaniService {
 
     }
 
-    public List<Biryani> biryaniList() {
+    public List<BiryaniDTO> biryaniList() {
         return new ArrayList<>(map.values());
     }
 
     @Override
-    public Biryani saveNewBiryani(Biryani biryani) {
+    public BiryaniDTO saveNewBiryani(BiryaniDTO biryaniDTO) {
 
-        Biryani newBiryani = Biryani.builder()
+        BiryaniDTO newBiryaniDTO = BiryaniDTO.builder()
                 .id(UUID.randomUUID())
-                .version(biryani.getVersion())
-                .biryaniName(biryani.getBiryaniName())
-                .biryaniStyle(biryani.getBiryaniStyle())
-                .price(biryani.getPrice())
-                .barcode(biryani.getBarcode())
+                .version(biryaniDTO.getVersion())
+                .biryaniName(biryaniDTO.getBiryaniName())
+                .biryaniStyle(biryaniDTO.getBiryaniStyle())
+                .price(biryaniDTO.getPrice())
+                .barcode(biryaniDTO.getBarcode())
                 .createdDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
-                .quantityOnHand(biryani.getQuantityOnHand()).build();
+                .quantityOnHand(biryaniDTO.getQuantityOnHand()).build();
 
-        map.put(newBiryani.getId(), newBiryani);
-        return newBiryani;
+        map.put(newBiryaniDTO.getId(), newBiryaniDTO);
+        return newBiryaniDTO;
     }
 
     @Override
-    public void updateById(UUID id, Biryani biryani) {
-        Biryani existing = map.get(id);
-        existing.setBiryaniName(biryani.getBiryaniName());
-        existing.setBiryaniStyle(biryani.getBiryaniStyle());
-        existing.setBarcode(biryani.getBarcode());
-        existing.setQuantityOnHand(biryani.getQuantityOnHand());
-        existing.setVersion(biryani.getVersion());
+    public void updateById(UUID id, BiryaniDTO biryaniDTO) {
+        BiryaniDTO existing = map.get(id);
+        existing.setBiryaniName(biryaniDTO.getBiryaniName());
+        existing.setBiryaniStyle(biryaniDTO.getBiryaniStyle());
+        existing.setBarcode(biryaniDTO.getBarcode());
+        existing.setQuantityOnHand(biryaniDTO.getQuantityOnHand());
+        existing.setVersion(biryaniDTO.getVersion());
 
         map.put(existing.getId(), existing);
 
@@ -98,32 +98,32 @@ public class BiryaniServiceImpl implements BiryaniService {
     }
 
     @Override
-    public void patchById(UUID biryaniId, Biryani biryani) {
-        Biryani existing = map.get(biryaniId);
+    public void patchById(UUID biryaniId, BiryaniDTO biryaniDTO) {
+        BiryaniDTO existing = map.get(biryaniId);
 
-        if (StringUtils.hasText(biryani.getBiryaniName())) {
-            existing.setBiryaniName(biryani.getBiryaniName());
+        if (StringUtils.hasText(biryaniDTO.getBiryaniName())) {
+            existing.setBiryaniName(biryaniDTO.getBiryaniName());
         }
-        if (biryani.getBiryaniStyle() != null) {
-            existing.setBiryaniStyle(biryani.getBiryaniStyle());
+        if (biryaniDTO.getBiryaniStyle() != null) {
+            existing.setBiryaniStyle(biryaniDTO.getBiryaniStyle());
         }
-        if (biryani.getPrice() != null) {
-            existing.setPrice(biryani.getPrice());
+        if (biryaniDTO.getPrice() != null) {
+            existing.setPrice(biryaniDTO.getPrice());
         }
-        if (StringUtils.hasText(biryani.getBarcode())) {
-            existing.setBarcode(biryani.getBarcode());
+        if (StringUtils.hasText(biryaniDTO.getBarcode())) {
+            existing.setBarcode(biryaniDTO.getBarcode());
         }
-        if (biryani.getQuantityOnHand() != null) {
-            existing.setQuantityOnHand(biryani.getQuantityOnHand());
+        if (biryaniDTO.getQuantityOnHand() != null) {
+            existing.setQuantityOnHand(biryaniDTO.getQuantityOnHand());
         }
-        if (biryani.getVersion() != null) {
-            existing.setVersion(biryani.getVersion());
+        if (biryaniDTO.getVersion() != null) {
+            existing.setVersion(biryaniDTO.getVersion());
         }
 
     }
 
     @Override
-    public Optional<Biryani> getBiryaniById(UUID id) {
+    public Optional<BiryaniDTO> getBiryaniById(UUID id) {
 
         log.debug("Log Debug for getting buryani by ID");
         return Optional.of(map.get(id));

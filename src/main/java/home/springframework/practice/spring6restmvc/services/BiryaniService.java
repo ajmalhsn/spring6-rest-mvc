@@ -1,6 +1,6 @@
 package home.springframework.practice.spring6restmvc.services;
 
-import home.springframework.practice.spring6restmvc.models.Biryani;
+import home.springframework.practice.spring6restmvc.models.BiryaniDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,15 +8,15 @@ import java.util.UUID;
 
 public interface BiryaniService {
 
-    public Optional<Biryani> getBiryaniById(UUID id);
+    public Optional<BiryaniDTO> getBiryaniById(UUID id);
 
-    public List<Biryani> biryaniList();
+    public List<BiryaniDTO> biryaniList();
 
-    Biryani saveNewBiryani(Biryani biryani);
+    BiryaniDTO saveNewBiryani(BiryaniDTO biryaniDTO);
 
-    void updateById(UUID id, Biryani biryani);
+    void updateById(UUID id, BiryaniDTO biryaniDTO);
 
     void deleteById(UUID id);
 
-    void patchById(UUID biryaniId, Biryani biryani);
+    void patchById(UUID biryaniId, BiryaniDTO biryaniDTO);
 }

@@ -1,7 +1,7 @@
 package home.springframework.practice.spring6restmvc.controller;
 
 
-import home.springframework.practice.spring6restmvc.models.Customer;
+import home.springframework.practice.spring6restmvc.models.CustomerDTO;
 import home.springframework.practice.spring6restmvc.services.CustomerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +23,12 @@ public class CustomerController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Customer> getCustomers() {
+    public List<CustomerDTO> getCustomers() {
         return customerService.customerList();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "{Id}")
-    public Customer getCustomerById(@PathVariable("Id") UUID id) {
+    public CustomerDTO getCustomerById(@PathVariable("Id") UUID id) {
         log.debug("Customer being retreived by ID" + id);
         return customerService.getCustomerById(id);
 

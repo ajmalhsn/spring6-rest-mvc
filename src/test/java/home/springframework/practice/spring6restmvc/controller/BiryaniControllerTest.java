@@ -1,7 +1,6 @@
 package home.springframework.practice.spring6restmvc.controller;
 
-import home.springframework.practice.spring6restmvc.exceptions.NotFoundException;
-import home.springframework.practice.spring6restmvc.models.Biryani;
+import home.springframework.practice.spring6restmvc.models.BiryaniDTO;
 import home.springframework.practice.spring6restmvc.services.BiryaniService;
 import home.springframework.practice.spring6restmvc.services.BiryaniServiceImpl;
 import lombok.SneakyThrows;
@@ -40,9 +39,9 @@ class BiryaniControllerTest {
     @SneakyThrows
     @Test
     public void getBiryaniId() {
-        Biryani biryani = biryaniServiceImpl.biryaniList().get(0);
+        BiryaniDTO biryaniDTO = biryaniServiceImpl.biryaniList().get(0);
 
-        given(biryaniService.getBiryaniById(Mockito.any(UUID.class))).willReturn(Optional.of(biryani));
+        given(biryaniService.getBiryaniById(Mockito.any(UUID.class))).willReturn(Optional.of(biryaniDTO));
         mockMvc.perform(get("/biryani/v1/" + UUID.randomUUID())
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
