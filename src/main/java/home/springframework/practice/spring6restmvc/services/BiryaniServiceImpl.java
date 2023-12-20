@@ -80,7 +80,7 @@ public class BiryaniServiceImpl implements BiryaniService {
     }
 
     @Override
-    public void updateById(UUID id, BiryaniDTO biryaniDTO) {
+    public Optional<BiryaniDTO> updateById(UUID id, BiryaniDTO biryaniDTO) {
         BiryaniDTO existing = map.get(id);
         existing.setBiryaniName(biryaniDTO.getBiryaniName());
         existing.setBiryaniStyle(biryaniDTO.getBiryaniStyle());
@@ -90,15 +90,20 @@ public class BiryaniServiceImpl implements BiryaniService {
 
         map.put(existing.getId(), existing);
 
+        return Optional.of(existing);
     }
 
     @Override
-    public void deleteById(UUID id) {
-        map.remove(id);
+    public Boolean deleteById(UUID id) {
+        if(map.containsKey(id)) {
+            map.remove(id);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public void patchById(UUID biryaniId, BiryaniDTO biryaniDTO) {
+    public Optional<BiryaniDTO> patchById(UUID biryaniId, BiryaniDTO biryaniDTO) {
         BiryaniDTO existing = map.get(biryaniId);
 
         if (StringUtils.hasText(biryaniDTO.getBiryaniName())) {
@@ -119,6 +124,7 @@ public class BiryaniServiceImpl implements BiryaniService {
         if (biryaniDTO.getVersion() != null) {
             existing.setVersion(biryaniDTO.getVersion());
         }
+        return Optional.of(existing);
 
     }
 

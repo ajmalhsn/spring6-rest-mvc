@@ -13,7 +13,7 @@ public class CustomerServiceImpl implements CustomerService {
     Map<UUID, CustomerDTO> customerMap = new HashMap<>();
 
     public CustomerServiceImpl() {
-
+        DataPopulation();
     }
 
     @PostConstruct
@@ -43,8 +43,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO getCustomerById(UUID id) {
-        return customerMap.get(id);
+    public Optional<CustomerDTO> getCustomerById(UUID id) {
+        return Optional.ofNullable(customerMap.get(id));
     }
 
     @Override
@@ -58,17 +58,19 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void updateById(UUID id, CustomerDTO biryaniDTO) {
-
+    public Optional<CustomerDTO> updateById(UUID id, CustomerDTO biryaniDTO) {
+        return Optional.empty();
     }
 
     @Override
-    public void deleteById(UUID id) {
+    public Boolean deleteById(UUID id) {
 
+        return false;
     }
 
     @Override
-    public void patchById(UUID customerId, CustomerDTO customerDTO) {
+    public Optional<CustomerDTO> patchById(UUID customerId, CustomerDTO customerDTO) {
 
+        return Optional.empty();
     }
 }

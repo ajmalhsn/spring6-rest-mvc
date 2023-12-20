@@ -14,9 +14,9 @@ public interface BiryaniService {
 
     BiryaniDTO saveNewBiryani(BiryaniDTO biryaniDTO);
 
-    void updateById(UUID id, BiryaniDTO biryaniDTO);
+    Optional<BiryaniDTO> updateById(UUID id, BiryaniDTO biryaniDTO);
 
-    void deleteById(UUID id);
+    Boolean deleteById(UUID id);
 
-    void patchById(UUID biryaniId, BiryaniDTO biryaniDTO);
+    Optional<BiryaniDTO> patchById(UUID biryaniId, BiryaniDTO biryaniDTO);
 }
